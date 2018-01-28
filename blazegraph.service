@@ -1,0 +1,14 @@
+[Unit]
+Description=Blazegraph server daemon
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+ExecStart=/opt/blazegraph/scripts/startBlazegraphConfigTest.sh
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
