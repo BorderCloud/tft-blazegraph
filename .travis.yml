@@ -26,9 +26,9 @@ before_install:
 
 script:
   -   docker run --privileged --name instance.tft-blazegraph -h tft-blazegraph -d tft-blazegraph
-  -   docker run --privileged --name instance.tft.example.org -h example.org -d tft-virtuoso7-stable
-  -   docker run --privileged --name instance.tft.example1.org -h example1.org -d tft-virtuoso7-stable
-  -   docker run --privileged --name instance.tft.example2.org -h example2.org -d tft-virtuoso7-stable
+  -   docker run --privileged --name instance.tft.example.org -h example.org -d bordercloud/tft-virtuoso7-stable
+  -   docker run --privileged --name instance.tft.example1.org -h example1.org -d bordercloud/tft-virtuoso7-stable
+  -   docker run --privileged --name instance.tft.example2.org -h example2.org -d bordercloud/tft-virtuoso7-stable
 
 
   -   git clone --recursive https://github.com/BorderCloud/TFT.git
