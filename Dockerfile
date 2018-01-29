@@ -27,20 +27,5 @@ RUN chmod +x /opt/blazegraph/scripts/startBlazegraphConfigTest.sh
 COPY blazegraph.service /etc/systemd/system
 RUN systemctl enable blazegraph
 
-#CMD ["./BLAZEGRAPH_RELEASE_2_0_0/scripts/startBlazegraph.sh"]
-#EXPOSE 9999
-
-#AEFFACER 10 ok
-
-#COPY load.sh /opt/apache-jena-fuseki-3.6.0
-#COPY jena.service /etc/systemd/system
-
-#RUN mkdir /opt/apache-jena-fuseki-3.6.0/run
-#COPY shiro.ini /opt/apache-jena-fuseki-3.6.0/run
-
-#RUN chmod +x /opt/apache-jena-fuseki-3.6.0/load.sh
-
-#RUN systemctl enable jena
-
 EXPOSE 80
 CMD ["/usr/sbin/init"]
