@@ -29,8 +29,9 @@ script:
   -   docker run --privileged --name instance.tft.example.org -h example.org -d bordercloud/tft-virtuoso7-stable
   -   docker run --privileged --name instance.tft.example1.org -h example1.org -d bordercloud/tft-virtuoso7-stable
   -   docker run --privileged --name instance.tft.example2.org -h example2.org -d bordercloud/tft-virtuoso7-stable
-
-
+  
+  -   sleep 30
+  
   -   git clone --recursive https://github.com/BorderCloud/TFT.git
   -   cd TFT
   -   composer install 
