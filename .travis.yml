@@ -31,6 +31,7 @@ script:
   -   docker run --privileged --name instance.tft.example2.org -h example2.org -d bordercloud/tft-virtuoso7-stable
   
   -   sleep 30
+  -   docker network inspect bridge
   
   -   git clone --recursive https://github.com/BorderCloud/TFT.git
   -   cd TFT
