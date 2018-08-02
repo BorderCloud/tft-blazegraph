@@ -18,14 +18,15 @@ docker run --privileged --name instance.tft.example2.org -h example2.org -d bord
 docker run --privileged --name instance.tft_database -d bordercloud/tft-jena-fuseki
 
 #docker exec -it instance.tft-blazegraph /bin/bash
-
+#docker network inspect bridge
+#rm -rf TFT
 
 git clone --recursive https://github.com/BorderCloud/TFT.git
 cd TFT
 composer install
-php ./tft-testsuite -a -t fuseki -q http://172.17.0.2/test/query -u http://172.17.0.2/test/update
-php ./tft -t fuseki -q http://172.17.0.2/test/query -u http://172.17.0.2/test/update -tt fuseki -tq http://172.17.0.6/blazegraph/namespace/test/sparql/ -tu http://172.17.0.6/blazegraph/namespace/test/sparql/ -r http://test.com/test -o ./junit --softwareName="blazegraph" --softwareDescribeTag="v2" --softwareDescribe="Blazegraph 2.0.0 release"
-php ./tft-score -t fuseki -q http://172.17.0.2/test/query -u http://172.17.0.2/test/update -r http://test.com/test
+php ./tft-testsuite -a -t fuseki -q http://172.17.0.6/test/query -u http://172.17.0.6/test/update
+php ./tft -t fuseki -q http://172.17.0.6/test/query -u http://172.17.0.6/test/update -tt fuseki -tq http://172.17.0.2/blazegraph/namespace/test/sparql/ -tu http://172.17.0.2/blazegraph/namespace/test/sparql/ -r http://test.com/test -o ./junit --softwareName="blazegraph" --softwareDescribeTag="v2" --softwareDescribe="Blazegraph 2.0.0 release"
+php ./tft-score -t fuseki -q http://172.17.0.6/test/query -u http://172.17.0.6/test/update -r http://test.com/test
 ```
 ## Clean
 
