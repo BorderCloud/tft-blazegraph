@@ -2,7 +2,7 @@
 
 # tft-blazegraph: Blazegraph 2.0.0
 
-## Calculate Sparql Score with tft
+## Calculate SPARQLScore with tft in local
 
 
 ```
@@ -11,13 +11,12 @@ docker pull bordercloud/tft-virtuoso7-stable
 
 docker build -t tft-blazegraph .
 
-
-
-docker run --privileged --name instance.tft_database -d bordercloud/tft-jena-fuseki
+docker run --privileged --name instance.tft-blazegraph -h tft-blazegraph -d tft-blazegraph
 docker run --privileged --name instance.tft.example.org -h example.org -d bordercloud/tft-virtuoso7-stable
 docker run --privileged --name instance.tft.example1.org -h example1.org -d bordercloud/tft-virtuoso7-stable
 docker run --privileged --name instance.tft.example2.org -h example2.org -d bordercloud/tft-virtuoso7-stable
-docker run --privileged --name instance.tft-blazegraph -h tft-blazegraph -d tft-blazegraph
+docker run --privileged --name instance.tft_database -d bordercloud/tft-jena-fuseki
+
 #docker exec -it instance.tft-blazegraph /bin/bash
 
 

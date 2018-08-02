@@ -11,7 +11,7 @@ env:
     - URI="https://travis-ci.org/BorderCloud/tft-blazegraph/builds/$((TRAVIS_JOB_ID - 1))"
     - NAME="Blazegraph"
     - VERSION="v2.2.0"
-    - SPARQLSCOREDATABASE="134.158.74.247"
+    - SPARQLSCORE_DATABASE="134.158.74.247"
 
 language: php
 php:
