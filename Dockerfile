@@ -18,7 +18,7 @@ RUN mkdir -p $MAVEN_HOME /usr/share/maven/ref \
       | tar -xzC $MAVEN_HOME --strip-components=1 \
       && ln -s $MAVEN_HOME/bin/mvn /usr/bin/mvn
 
-RUN git clone  --depth 1 -b BLAZEGRAPH_RELEASE_2_0_0 --single-branch https://github.com/blazegraph/database.git /opt/blazegraph \
+RUN git clone  --depth 1 -b BLAZEGRAPH_RELEASE_CANDIDATE_2_2_0 --single-branch https://github.com/blazegraph/database.git /opt/blazegraph \
     && cd /opt/blazegraph \
     && ./scripts/mavenInstall.sh
 
