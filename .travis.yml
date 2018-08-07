@@ -12,6 +12,7 @@ env:
     - NAME="Blazegraph"
     - VERSION="v2.2.0"
     - SPARQLSCORE_DATABASE="134.158.74.247"
+#    - SPARQLSCORE_DATABASE="172.17.0.6" #local
 
 language: php
 php:
@@ -21,15 +22,30 @@ services:
   - docker
 
 before_install:
+# Download docker's images 
+#  - docker pull bordercloud/tft-jena-fuseki
   - docker pull bordercloud/tft-virtuoso7-stable
+  
+# Compile the docker's project 
   - docker build -t tft-blazegraph .
 
 script:
+# Deploy TFT
+
+# 172.17.0.2
   -   docker run --privileged --name instance.tft-blazegraph -h tft-blazegraph -d tft-blazegraph
+# 172.17.0.3
   -   docker run --privileged --name instance.tft.example.org -h example.org -d bordercloud/tft-virtuoso7-stable
+# 172.17.0.4
   -   docker run --privileged --name instance.tft.example1.org -h example1.org -d bordercloud/tft-virtuoso7-stable
+# 172.17.0.5
   -   docker run --privileged --name instance.tft.example2.org -h example2.org -d bordercloud/tft-virtuoso7-stable
   
+# Run RDF database in order to save tests and results in local (decomment these line and change the variable SPARQLSCORE_DATABASE
+## 172.17.0.6 for local
+#  -   docker run --privileged --name instance.tft_database -d tft-jena-fuseki
+
+# Wait... 
   -   sleep 30
 #  -   docker network inspect bridge
   
