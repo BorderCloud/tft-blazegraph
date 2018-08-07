@@ -45,7 +45,7 @@ php ./tft -t fuseki -q http://172.17.0.6/test/query \
                      -tu http://172.17.0.2/blazegraph/namespace/test/sparql/ 
           -r http://example.org/buildid   \
           -o ./junit  \
-          --softwareName="Jena" \
+          --softwareName="blazegraph" \
           --softwareDescribeTag=X.X.X \
           --softwareDescribe="Name"
                     
