@@ -11,12 +11,12 @@ docker pull bordercloud/tft-jena-fuseki
 docker pull bordercloud/tft-virtuoso7-stable
 
 # Compile the docker's project 
-docker build -t tft-stardog .
+docker build -t tft-blazegraph .
   
 # Deploy network of SPARQL services
 
 # 172.17.0.2
-docker run --privileged --name instance.tft-stardog -h tft-stardog -d tft-stardog
+docker run --privileged --name instance.tft-blazegraph -h tft-blazegraph -d tft-blazegraph
 # 172.17.0.3
 docker run --privileged --name instance.tft.example.org -h example.org -d bordercloud/tft-virtuoso7-stable
 # 172.17.0.4
@@ -24,7 +24,9 @@ docker run --privileged --name instance.tft.example1.org -h example1.org -d bord
 # 172.17.0.5
 docker run --privileged --name instance.tft.example2.org -h example2.org -d bordercloud/tft-virtuoso7-stable
 # 172.17.0.6 for local
-docker run --privileged --name instance.tft_database -d tft-jena-fuseki
+docker run --privileged --name instance.tft_database -d bordercloud/tft-jena-fuseki
+
+# docker network inspect bridge
 
 git clone --recursive https://github.com/BorderCloud/TFT.git
 cd TFT
@@ -53,7 +55,7 @@ php ./tft-score -t fuseki -q http://172.17.0.6/test/query
                           -u http://172.17.0.6/test/update 
                 -r  http://example.org/buildid
 ```
-Stardog's endpoint is near of Fuseki.
+blazegraph's endpoint is near of Fuseki.
 
 # Delete containers of TFT
 
@@ -66,8 +68,8 @@ docker stop instance.tft.example1.org
 docker rm instance.tft.example1.org
 docker stop instance.tft.example2.org
 docker rm instance.tft.example2.org
-docker stop instance.tft-stardog
-docker rm instance.tft-stardog
+docker stop instance.tft-blazegraph
+docker rm instance.tft-blazegraph
 
 ```
 
