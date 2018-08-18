@@ -24,7 +24,7 @@ docker run --privileged --name instance.tft.example1.org -h example1.org -d bord
 # 172.17.0.5
 docker run --privileged --name instance.tft.example2.org -h example2.org -d bordercloud/tft-virtuoso7-stable
 # 172.17.0.6 for local
-docker run --privileged --name instance.tft_database -d bordercloud/tft-jena-fuseki
+docker run --privileged --name instance.tft-database -d bordercloud/tft-jena-fuseki
 
 # docker network inspect bridge
 
@@ -36,7 +36,7 @@ composer install
 
 # install JMeter for protocol tests
 wget http://mirrors.standaloneinstaller.com/apache//jmeter/binaries/apache-jmeter-4.0.tgz
-tar xvzf apache-jmeter-4.0.tgz 
+tar xzf apache-jmeter-4.0.tgz 
 mv apache-jmeter-4.0 jmeter
 rm apache-jmeter-4.0.tgz 
 ```
@@ -44,21 +44,20 @@ rm apache-jmeter-4.0.tgz
 ### Start tests
 Add parameter debug if necessary '-d'
 ```
-php ./tft-testsuite -a -t fuseki -q http://172.17.0.6/test/query \
-                    -u http://172.17.0.6/test/update
+php ./tft-testsuite -a -t fuseki -q http://172.17.0.6:8080/test/query \
+                    -u http://172.17.0.6:8080/test/update
                     
-php ./tft -t fuseki -q http://172.17.0.6/test/query \
-                    -u http://172.17.0.6/test/update \
-          -tt fuseki -tq http://172.17.0.2/blazegraph/namespace/test/sparql/ \
-                     -tu http://172.17.0.2/blazegraph/namespace/test/sparql/ \
+php ./tft -t fuseki -q http://172.17.0.6:8080/test/query \
+                    -u http://172.17.0.6:8080/test/update \
+          -tt fuseki -te http://172.17.0.2/blazegraph/namespace/test/sparql \
           -r http://example.org/buildid   \
           -o ./junit  \
           --softwareName="blazegraph" \
           --softwareDescribeTag=X.X.X \
           --softwareDescribe="Name"
                     
-php ./tft-score -t fuseki -q http://172.17.0.6/test/query 
-                          -u http://172.17.0.6/test/update 
+php ./tft-score -t fuseki -q http://172.17.0.6:8080/test/query \
+                          -u http://172.17.0.6:8080/test/update \
                 -r  http://example.org/buildid
 ```
 blazegraph's endpoint is near of Fuseki.
@@ -66,8 +65,8 @@ blazegraph's endpoint is near of Fuseki.
 # Delete containers of TFT
 
 ```
-docker stop instance.tft_database
-docker rm instance.tft_database
+docker stop instance.tft-database
+docker rm instance.tft-database
 docker stop instance.tft.example.org
 docker rm instance.tft.example.org
 docker stop instance.tft.example1.org
