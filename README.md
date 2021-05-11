@@ -11,22 +11,14 @@ docker pull bordercloud/tft-jena-fuseki
 docker pull bordercloud/tft-virtuoso7-stable
 
 # Compile the docker's project 
-docker build -t tft-blazegraph .
+docker build --build-arg branch_blazegraph=BLAZEGRAPH_RELEASE_2_1_5 -t tft-blazegraph .
+#docker build --build-arg branch_blazegraph=BLAZEGRAPH_2_1_6_RC -t tft-blazegraph .
+#docker build --build-arg branch_blazegraph=BLAZEGRAPH_RELEASE_CANDIDATE_2_2_0 -t tft-blazegraph .
   
 # Deploy network of SPARQL services
 
-# 172.17.0.2
-docker run --privileged --name instance.tft-blazegraph -h tft-blazegraph -d tft-blazegraph
-# 172.17.0.3
-docker run --privileged --name instance.tft.example.org -h example.org -d bordercloud/tft-virtuoso7-stable
-# 172.17.0.4
-docker run --privileged --name instance.tft.example1.org -h example1.org -d bordercloud/tft-virtuoso7-stable
-# 172.17.0.5
-docker run --privileged --name instance.tft.example2.org -h example2.org -d bordercloud/tft-virtuoso7-stable
-# 172.17.0.6 for local
-docker run --privileged --name instance.tft-database -d bordercloud/tft-jena-fuseki
-
-# docker network inspect bridge
+docker-compose up -d 
+# docker-compose stop
 
 git clone --recursive https://github.com/BorderCloud/TFT.git
 cd TFT
@@ -35,32 +27,33 @@ cd TFT
 composer install 
 
 # install JMeter for protocol tests
-wget http://mirrors.standaloneinstaller.com/apache//jmeter/binaries/apache-jmeter-4.0.tgz
-tar xzf apache-jmeter-4.0.tgz 
-mv apache-jmeter-4.0 jmeter
-rm apache-jmeter-4.0.tgz 
+wget http://mirrors.standaloneinstaller.com/apache//jmeter/binaries/apache-jmeter-5.4.1.tgz
+tar xvzf apache-jmeter-5.4.1.tgz 
+mv  apache-jmeter-5.4.1 jmeter
+rm apache-jmeter-5.4.1.tgz 
 ```
 
 ### Start tests
 Add parameter debug if necessary '-d'
 ```
-php ./tft-testsuite -a -t fuseki -q http://172.17.0.6:8080/test/query \
-                    -u http://172.17.0.6:8080/test/update
-                    
-php ./tft -t fuseki -q http://172.17.0.6:8080/test/query \
-                    -u http://172.17.0.6:8080/test/update \
-          -tt fuseki -te http://172.17.0.2/blazegraph/namespace/test/sparql \
+php ./tft-testsuite -a -t fuseki -q http://172.18.0.6:8080/test/query \
+                    -u http://172.18.0.6:8080/test/update
+
+php ./tft -t fuseki -q http://172.18.0.6:8080/test/query \
+                    -u http://172.18.0.6:8080/test/update \
+          -tt fuseki -te http://172.18.0.2/blazegraph/namespace/test/sparql \
           -r http://example.org/buildid   \
           -o ./junit  \
           --softwareName="blazegraph" \
-          --softwareDescribeTag=X.X.X \
+          --softwareDescribeTag=2.1.5 \
           --softwareDescribe="Name"
-                    
-php ./tft-score -t fuseki -q http://172.17.0.6:8080/test/query \
-                          -u http://172.17.0.6:8080/test/update \
+        
+php ./tft-score -t fuseki -q http://172.18.0.6:8080/test/query \
+                          -u http://172.18.0.6:8080/test/update \
                 -r  http://example.org/buildid
+                
 ```
-blazegraph's endpoint is near of Fuseki.
+blazegraph's endpoint is near of Jena Fuseki.
 
 # Delete containers of TFT
 
@@ -75,7 +68,6 @@ docker stop instance.tft.example2.org
 docker rm instance.tft.example2.org
 docker stop instance.tft-blazegraph
 docker rm instance.tft-blazegraph
-
 ```
 
 # Delete all containers
