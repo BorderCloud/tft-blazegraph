@@ -6,10 +6,6 @@
 
 ### Install
 ```
-# Download docker's images 
-docker pull bordercloud/tft-jena-fuseki
-docker pull bordercloud/tft-virtuoso7-stable
-
 # Compile the docker's project 
 docker build --build-arg branch_blazegraph=BLAZEGRAPH_RELEASE_2_1_5 -t tft-blazegraph .
 #docker build --build-arg branch_blazegraph=BLAZEGRAPH_2_1_6_RC -t tft-blazegraph .
@@ -50,8 +46,7 @@ php ./tft -t fuseki -q http://172.18.0.6:8080/test/query \
         
 php ./tft-score -t fuseki -q http://172.18.0.6:8080/test/query \
                           -u http://172.18.0.6:8080/test/update \
-                -r  http://example.org/buildid
-                
+                -r  http://example.org/buildid  
 ```
 blazegraph's endpoint is near of Jena Fuseki.
 

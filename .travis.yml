@@ -17,17 +17,13 @@ env:
     - NAME="Blazegraph"
     - SOFTWARE_DESCRIBE="Blazegraph is a triplestore and graph database, which is used in the Wikidata SPARQL endpoint."
     - VERSION="2.1.5"
-#    - SPARQLSCORE_DTABASE="134.158.74.247"
-    - SPARQLSCORE_DATABASE="172.18.0.6:8080" #local
+    - SPARQLSCORE_DATABASE="134.158.74.239"
+#    - SPARQLSCORE_DATABASE="172.18.0.6:8080" #local
 
 services:
   - docker
 
 before_install:
-# Download docker's images 
-  - docker pull bordercloud/tft-virtuoso7-stable
-  - docker pull bordercloud/tft-jena-fuseki
-
 # Compile the docker's project 
   - docker build --build-arg branch_blazegraph=BLAZEGRAPH_RELEASE_2_1_5 -t tft-blazegraph .
 # - docker build --build-arg branch_blazegraph=BLAZEGRAPH_2_1_6_RC -t tft-blazegraph .
@@ -46,14 +42,17 @@ script:
   - mv  apache-jmeter-5.4.1 jmeter
   - rm apache-jmeter-5.4.1.tgz
   
-  -   php ./tft-testsuite -a -t fuseki -q http://${SPARQLSCORE_DATABASE}/test/query -u http://${SPARQLSCORE_DATABASE}/test/update
+# only in local  -   php ./tft-testsuite -a -t fuseki -q http://${SPARQLSCORE_DATABASE}/test/query -u http://${SPARQLSCORE_DATABASE}/test/update
   -   php ./tft -t fuseki -q http://${SPARQLSCORE_DATABASE}/test/query -u http://${SPARQLSCORE_DATABASE}/test/update -tt fuseki -te http://172.18.0.2/blazegraph/namespace/test/sparql  -r ${URI} -o ./junit --softwareName="${NAME}" --softwareDescribeTag=${VERSION}  --softwareDescribe="${TRAVIS_COMMIT}" 
   -   php ./tft-score -t fuseki -q http://${SPARQLSCORE_DATABASE}/test/query -u http://${SPARQLSCORE_DATABASE}/test/update -r  ${URI}
-  
+
+  -   docker-compose stop
+ 
+# Save the Docker image
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+   - if [ "$TRAVIS_BRANCH" == "master" ]; then
      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
      docker tag tft-blazegraph bordercloud/tft-blazegraph:latest ;
      docker tag tft-blazegraph bordercloud/tft-blazegraph:${VERSION} ;
-    docker push bordercloud/tft-blazegraph;
-    fi
+     docker push bordercloud/tft-blazegraph;
+     fi
