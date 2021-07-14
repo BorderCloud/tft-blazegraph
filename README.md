@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/BorderCloud/tft-blazegraph.svg)](https://travis-ci.org/BorderCloud/tft-blazegraph)
+[![Test](https://github.com/BorderCloud/tft-blazegraph/actions/workflows/test.yml/badge.svg)](https://github.com/BorderCloud/tft-blazegraph/actions/workflows/test.yml) ([SPARQLScore](http://sparqlscore.com/)) [![Publish](https://github.com/BorderCloud/tft-blazegraph/actions/workflows/publish.yml/badge.svg)](https://github.com/BorderCloud/tft-blazegraph/actions/workflows/publish.yml)
 
 # tft-blazegraph: Blazegraph 
 
