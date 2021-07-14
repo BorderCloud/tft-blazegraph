@@ -11,7 +11,7 @@ RUN yum install -y java-$JAVA_VERSION-openjdk-devel git which
 ENV JAVA_HOME /usr/lib/jvm/java
 
 # Maven
-ARG MAVEN_VERSION=3.3.9
+ARG MAVEN_VERSION=3.8.1
 ENV MAVEN_HOME /usr/share/maven
 RUN mkdir -p $MAVEN_HOME /usr/share/maven/ref \
       && curl -fsSL http://apache.osuosl.org/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz \
@@ -19,7 +19,7 @@ RUN mkdir -p $MAVEN_HOME /usr/share/maven/ref \
       && ln -s $MAVEN_HOME/bin/mvn /usr/bin/mvn
 
       
-ARG branch_blazegraph=BLAZEGRAPH_RELEASE_CANDIDATE_2_2_0
+ARG branch_blazegraph=BLAZEGRAPH_2_1_6_RC
 RUN git clone  --depth 1 -b $branch_blazegraph --single-branch https://github.com/blazegraph/database.git /opt/blazegraph \
     && cd /opt/blazegraph \
     && ./scripts/mavenInstall.sh

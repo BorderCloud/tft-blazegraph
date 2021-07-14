@@ -1,0 +1,17 @@
+name: Build
+
+#on: push
+on: workflow_dispatch
+   
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build image docker
+        run: >-
+            docker build --build-arg branch_blazegraph=BLAZEGRAPH_RELEASE_2_1_5 -t tft-blazegraph .
+# docker build --build-arg branch_blazegraph=BLAZEGRAPH_2_1_6_RC -t tft-blazegraph .
+# docker build --build-arg branch_blazegraph=BLAZEGRAPH_RELEASE_CANDIDATE_2_2_0 -t tft-blazegraph .
+
